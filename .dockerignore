@@ -1,0 +1,35 @@
+# The build context is the repository root: the frontend is built from it and
+# then copied into the server for embedding, so both halves have to be visible.
+# Everything below is either rebuilt inside the image or irrelevant to it.
+
+.git
+.gitignore
+.dockerignore
+Dockerfile
+Makefile
+README.md
+
+# Installed inside the image from the lockfile, and huge.
+node_modules
+
+# Local build output. The image builds its own, and copying a stale one in
+# would both bust the layer cache and risk shipping yesterday's app.
+/dist
+server/web/dist
+server/server
+server/server.exe
+
+# Local databases: the image starts empty and seeds itself on first run.
+*.db
+*.db-shm
+*.db-wal
+
+# Local environment overrides must not be baked into an image.
+.env
+.env.*
+
+# Editor and OS noise.
+.DS_Store
+.idea
+.vscode
+*.local
