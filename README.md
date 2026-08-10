@@ -27,13 +27,14 @@ lets you list, create and delete trips. Set `BIKETRIP_ADMIN_TOKEN` to fix it acr
 | `-db` | `BIKETRIP_DB` | `biketrip.db` |
 | `-admin-token` | `BIKETRIP_ADMIN_TOKEN` | generated per run |
 | `-allow-origin` | `BIKETRIP_ALLOW_ORIGIN` | same-origin only |
+| `-nominatim` | `BIKETRIP_NOMINATIM` | `https://nominatim.openstreetmap.org` |
 | `-no-seed` | — | seeds on an empty database |
 
 ## The trip document
 
 Everything about a trip lives in one JSON file: metadata, base camps, days with their stops,
-campsites and the checklist. Editing that file is the way to make big changes; the UI edits
-individual fields in place.
+campsites and the checklist. Import and export are how a whole plan moves; the UI edits it in
+place — see [Editing](#editing).
 
 ```jsonc
 {
@@ -104,17 +105,55 @@ Writes are field-level (`{day, field, value, updatedAt}` and `{path, value}` pat
 whole documents, so two people editing different things while offline both survive the flush.
 Conflicts settle last-write-wins per field.
 
+## Editing
+
+Holding an edit link, every field is editable where it is shown. Three kinds of edit, with
+three different mechanisms, because they have three different failure modes.
+
+**Fields** — click the value, change it, it saves. One `{path, value}` op against
+`PATCH /api/trips/:token`. Several fields that belong to one gesture go up as one op list and
+therefore one revision: dragging a stop writes its coordinates and, if it landed off the edge
+of the map window, the widened `bounds` with it. These queue offline and merge per field.
+
+**Stops** — the shape of a day, and the thing everything else is derived from. Turn on *Place*
+on the map and the day's stops become handles: drag one to move it, click empty map to add one
+at the end, click a stop to rename or remove it. Base-camp and campsite pins drag in the same
+mode; dragging a campsite pin onto the actual pitch is what clears its `coordsApprox` flag. The
+same stops are a reorderable list in the day panel, with a search box that looks names up
+against OSM. Order is what the router is asked to go through, so reordering is how a day gets
+reshaped. Every change writes the whole `stops` array as one op — what the patcher asks for,
+and what makes a burst of drags collapse to the last one in the offline queue.
+
+**Days** — adding, deleting and moving one. This is the only edit that is *not* a patch, and
+`POST /api/trips/:token/days` exists for it. Day numbers are keys, not labels: `log_entries`
+and `routes` are both stored against them, and the validator requires them to run 1..N with no
+holes. Deleting day 4 of 11 renumbers 5..11 down one, so the document edit and the moving of
+every row keyed by those numbers happen in one transaction. A base whose arrival day was
+deleted is moved to the next surviving day and you are told so. Day edits need a connection —
+there is no honest way to replay a renumbering against someone else's version later.
+
+Place lookup runs on the server for the same reason routing does, plus one of its own: the OSM
+usage policy requires an identifying `User-Agent`, and a browser cannot send one. Results are
+biased toward the trip's `bounds` and cached per query. A geocoder that is down costs you a
+stop named `48.2513, -4.4721`, not a lost click.
+
 ## Routing
 
 Road geometry comes from the public OSRM demo server, fetched **by the Go service**, not the
 browser: one fetch serves the whole group, the demo server sees one polite client pacing
-itself, and offline browsers get the geometry with the trip.
+itself, and offline browsers get the geometry with the trip. Editing a day's stops schedules a
+refresh for that day a beat later, so the drawn road catches up on its own.
 
 Routed distance and planned distance disagree on purpose. OSRM returns the *shortest* drive
 through a day's stops; the plans assume the scenic line. Brittany day 5 routes at 99 km against
-320 planned. **Fuel and time against the planned figure.** Route geometry is invalidated per
-day by a hash of that day's stop coordinates, so moving a stop refetches that day and nothing
-else.
+320 planned. **Fuel and time against the planned figure.** That is why the routed figure is
+offered as a button — *use 214 km · 4.2 h* — rather than filled in for you: taking it is a
+decision that the day is no longer going the long way round.
+
+Route geometry is invalidated per day by a hash of that day's stop coordinates, so moving a
+stop refetches that day and nothing else. Until the refetch lands, a cached line whose ends no
+longer match the day's first and last stop is drawn as the dashed schematic instead — a broken
+line that says it is not the road beats a real road through somewhere you are not going.
 
 ## Layout
 
@@ -123,11 +162,13 @@ src/                  React 19 + Vite + Tailwind v4 + zustand
   api/client.ts       typed fetch, field-level errors
   offline/            IndexedDB cache, write queue, service worker registration
   store/              useTripStore (data + writes), useUiStore (where you are)
-  components/         Spine, RouteMap, DayPanel, Editable
+  hooks/              useDayGeometry (what to draw), useStopEditor (how stops change)
+  components/         Spine, RouteMap, DayPanel, StopList, PlaceSearch, Editable
   views/              Route, Roadbook, Kit, Camps, Trip
   pages/              TripsPage (list), TripPage (/t/:token)
 server/               Go 1.25, net/http, modernc.org/sqlite (no cgo)
-  internal/trip/      document schema, validator, patch, JSON Schema
+  internal/trip/      document schema, validator, patch, day ops, JSON Schema
+  internal/osrm/      road geometry;  internal/nominatim/  place lookup
   internal/store/     SQLite: trips, log, kit state, route cache
   internal/api/       routing, token access control, handlers
   internal/osrm/      rate-limited routing client
@@ -162,8 +203,15 @@ make test    # go test ./... and tsc --noEmit
 - **Two idb-keyval stores must not share a database name.** Each `createStore` opens the
   database at version 1 and creates only its own store, so the second one is silently missing
   and every write fails. `bike-trip-cache` and `bike-trip-queue` are separate for that reason.
-- **OpenTopoMap and the OSRM demo server are courtesy services.** Route refresh walks days one
-  at a time with a gap. Don't parallelise it.
+- **OpenTopoMap, the OSRM demo server and Nominatim are courtesy services.** Route refresh
+  walks days one at a time with a gap. Don't parallelise it. Nominatim's limit is a hard one
+  request per second and it will block an anonymous client, which is why that call is
+  server-side with a `User-Agent` and a query cache.
+- **Day numbers are keys, not labels.** `log_entries.day` and `routes.day` both point at them.
+  Never renumber `days[]` through a patch — `POST /trips/:token/days` moves the rows with it.
+- **A Leaflet `useEffect` keyed on the day object refits the map on every edit.** Every patch
+  produces a new object; `FitTo` keys on `day.n` and stops entirely while you are placing
+  stops, or the camera fights the cursor.
 - **This project uses pnpm.** There is a `pnpm-lock.yaml`; `npm install` produces a broken tree.
 
 ## Still open

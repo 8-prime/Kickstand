@@ -1,7 +1,9 @@
 import type {
+  DayOp,
   FieldError,
   KitEntry,
   LogEntry,
+  Place,
   RouteGeometry,
   TripDoc,
   TripPayload,
@@ -195,6 +197,32 @@ export const api = {
     request<{ routes: RouteGeometry[]; attempted: number; failures: FieldError[] }>(
       `/trips/${token}/routes/refresh`,
       { method: "POST", body: { days: days ?? [], force }, admin: true },
+    ),
+
+  /** Add, remove or move a day. Not a patch: the server renumbers the days and
+   *  moves the log entries and cached routes keyed by those numbers with them,
+   *  in one transaction. */
+  dayOp: (token: string, op: DayOp, ifMatch?: number) =>
+    request<TripPayload>(`/trips/${token}/days`, {
+      method: "POST",
+      body: op,
+      ifMatch,
+      admin: true,
+    }),
+
+  /** Look a place up by name. Server-side, because the OSM usage policy wants
+   *  an identifying User-Agent and a browser cannot send one. */
+  searchPlaces: (token: string, q: string, signal?: AbortSignal) =>
+    request<{ places: Place[] }>(
+      `/trips/${token}/places?q=${encodeURIComponent(q)}`,
+      { admin: true, signal },
+    ),
+
+  /** Name the point a stop was just dropped on. */
+  reversePlace: (token: string, lat: number, lon: number, signal?: AbortSignal) =>
+    request<{ place: Place }>(
+      `/trips/${token}/places/reverse?lat=${lat}&lon=${lon}`,
+      { admin: true, signal },
     ),
 
   exportUrl: (token: string) => `${BASE}/trips/${token}/export`,

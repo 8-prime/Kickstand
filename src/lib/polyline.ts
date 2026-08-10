@@ -2,7 +2,7 @@ import type { LatLon } from "./geo";
 
 /** Decoder for Google's encoded polyline format, which is what OSRM returns
  *  for `geometries=polyline`. Far more compact than GeoJSON — that matters
- *  because every route is cached in localStorage, which caps out around 5 MB.
+ *  because every route is cached in IndexedDB alongside the rest of the trip.
  *
  *  Precision 5 is OSRM's default for `polyline`. */
 export function decodePolyline(encoded: string, precision = 5): LatLon[] {

@@ -3,6 +3,7 @@ import { ApiError, api } from "../api/client";
 import { cacheTrip, cachedTrip } from "../offline/cache";
 import { enqueue, forget, onQueueChange, snapshot, type PendingWrite } from "../offline/queue";
 import type {
+  DayOp,
   KitEntry,
   LogEntry,
   LogField,
@@ -18,6 +19,9 @@ interface TripState {
   payload: TripPayload | null;
   status: Status;
   error: string | null;
+  /** Something the server did that you did not ask for and should know about.
+   *  Not a failure — the write landed. */
+  notice: string | null;
 
   /** True when the trip on screen came out of the cache. */
   fromCache: boolean;
@@ -38,11 +42,18 @@ interface TripState {
 
   /** Set one field of the trip document — what the in-place editors call. */
   patch: (path: string, value: unknown) => Promise<void>;
+  /** Set several fields as one revision. Dragging a stop moves its coordinates
+   *  and can widen the map bounds; those belong in one write, not three. */
+  patchMany: (ops: { path: string; value: unknown }[]) => Promise<void>;
   /** Replace the whole document — what the import panel calls. */
   replaceDoc: (doc: TripDoc) => Promise<void>;
 
+  /** Add, remove or move a day. Online only: it renumbers the whole trip. */
+  dayOp: (op: DayOp) => Promise<void>;
+
   refreshRoutes: (days?: number[], force?: boolean) => Promise<void>;
   flush: () => Promise<void>;
+  dismissNotice: () => void;
 }
 
 export const useTripStore = create<TripState>((set, get) => ({
@@ -50,6 +61,7 @@ export const useTripStore = create<TripState>((set, get) => ({
   payload: null,
   status: "idle",
   error: null,
+  notice: null,
   fromCache: false,
   cachedAt: null,
   online: typeof navigator === "undefined" ? true : navigator.onLine,
@@ -138,31 +150,38 @@ export const useTripStore = create<TripState>((set, get) => ({
     }
   },
 
-  patch: async (path, value) => {
+  patch: async (path, value) => get().patchMany([{ path, value }]),
+
+  patchMany: async (ops) => {
     const token = get().token;
     const payload = get().payload;
-    if (!token || !payload) return;
+    if (!token || !payload || !ops.length) return;
 
     // Optimistic: the editor closes on the value you typed, not on a round trip.
-    set({ payload: { ...payload, doc: setIn(payload.doc, path, value) } });
+    const doc = ops.reduce((d, op) => setIn(d, op.path, op.value), payload.doc);
+    set({ payload: { ...payload, doc } });
 
     if (!get().online) {
-      await enqueue({ kind: "patch", token, path, value, at: Date.now() });
+      // Queued one op at a time, not as a batch: the queue collapses repeated
+      // writes to the same path, and a batch would hide them from that.
+      for (const op of ops) {
+        await enqueue({ kind: "patch", token, path: op.path, value: op.value, at: Date.now() });
+      }
       set({ pending: (await snapshot()).length });
       await cacheCurrent(get);
       return;
     }
 
     try {
-      const updated = await api.patchTrip(token, [{ path, value }], payload.revision);
+      const updated = await api.patchTrip(token, ops, payload.revision);
       set({ payload: updated, error: null });
       await cacheTrip(token, updated);
     } catch (err) {
       if (err instanceof ApiError && err.isConflict) {
-        // Someone else saved. Take their version, then reapply this one edit.
+        // Someone else saved. Take their version, then reapply these edits.
         await get().reload();
         try {
-          const retried = await api.patchTrip(token, [{ path, value }]);
+          const retried = await api.patchTrip(token, ops);
           set({ payload: retried, error: null });
           await cacheTrip(token, retried);
           return;
@@ -172,7 +191,9 @@ export const useTripStore = create<TripState>((set, get) => ({
         }
       }
       if (err instanceof ApiError && err.isOffline) {
-        await enqueue({ kind: "patch", token, path, value, at: Date.now() });
+        for (const op of ops) {
+          await enqueue({ kind: "patch", token, path: op.path, value: op.value, at: Date.now() });
+        }
         set({ pending: (await snapshot()).length });
         return;
       }
@@ -191,6 +212,42 @@ export const useTripStore = create<TripState>((set, get) => ({
     set({ payload: updated, error: null });
     await cacheTrip(token, updated);
   },
+
+  dayOp: async (op) => {
+    const token = get().token;
+    const payload = get().payload;
+    if (!token || !payload) return;
+
+    // Not queueable, deliberately. Every other edit names a field, so two
+    // people editing offline merge; this one renumbers the days that naming
+    // depends on, and there is no honest way to replay it against someone
+    // else's version later.
+    if (!get().online) {
+      set({ error: "Adding, removing or moving a day needs a connection — it renumbers the trip." });
+      return;
+    }
+
+    try {
+      const updated = await api.dayOp(token, op, payload.revision);
+      set({
+        payload: updated,
+        error: null,
+        notice: updated.warnings?.length
+          ? updated.warnings.map((w) => w.message).join(" ")
+          : null,
+      });
+      await cacheTrip(token, updated);
+    } catch (err) {
+      if (err instanceof ApiError && err.isConflict) {
+        await get().reload();
+        set({ error: "Someone else saved first. You have their version now — try that again." });
+        return;
+      }
+      set({ error: messageOf(err) });
+    }
+  },
+
+  dismissNotice: () => set({ notice: null }),
 
   refreshRoutes: async (days, force) => {
     const token = get().token;

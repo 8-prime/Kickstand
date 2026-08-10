@@ -27,8 +27,40 @@ export function boundsOf(points: LatLon[]): Bounds | null {
   return { lat0, lat1, lon0, lon1 };
 }
 
-/** Great-circle distance in km. Used to sanity-check nothing, only to give the
- *  schematic fallback a rough length so the panel isn't blank. */
+/** Widen bounds so they contain every given point, or return null if they
+ *  already do.
+ *
+ *  Only ever grows. A trip whose opening window is wider than its stops is a
+ *  choice — the region you are riding in, not the box those stops happen to
+ *  fit — and shrinking it back on every edit would quietly undo that.
+ *
+ *  Null rather than an unchanged copy so a caller can leave `bounds` out of the
+ *  write entirely when nothing moved. */
+export function growBounds(current: Bounds, points: LatLon[], pad = 0.15): Bounds | null {
+  const box = boundsOf(points);
+  if (!box) return null;
+
+  const next: Bounds = {
+    lat0: Math.min(current.lat0, box.lat0 - pad),
+    lat1: Math.max(current.lat1, box.lat1 + pad),
+    lon0: Math.min(current.lon0, box.lon0 - pad),
+    lon1: Math.max(current.lon1, box.lon1 + pad),
+  };
+
+  const same =
+    next.lat0 === current.lat0 &&
+    next.lat1 === current.lat1 &&
+    next.lon0 === current.lon0 &&
+    next.lon1 === current.lon1;
+  return same ? null : next;
+}
+
+/** A coordinate as a stop name, for when the geocoder has nothing to say. */
+export const coordLabel = (lat: number, lon: number) =>
+  `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+
+/** Great-circle distance in km. Rough by design — it is used to tell whether
+ *  two points are the same place, not to measure a ride. */
 export function haversineKm(a: LatLon, b: LatLon): number {
   const R = 6371;
   const dLat = ((b[0] - a[0]) * Math.PI) / 180;

@@ -136,6 +136,25 @@ export interface RouteGeometry {
   fetchedAt: string;
 }
 
+/** A geocoder result, in the shape a Stop wants. */
+export interface Place {
+  /** Short label, which becomes the stop name. */
+  name: string;
+  /** The full address, so two places of the same name are distinguishable. */
+  displayName: string;
+  lat: number;
+  lon: number;
+  kind?: string;
+}
+
+/** Adding, removing or moving a day. Not a patch: day numbers are keys the log
+ *  and the route cache are stored against, so the server renumbers and remaps
+ *  them together. */
+export type DayOp =
+  | { op: "insert"; after: number }
+  | { op: "delete"; day: number }
+  | { op: "move"; day: number; to: number };
+
 export type Access = "view" | "edit";
 
 /** Everything needed to render a trip and keep working with no signal. */
@@ -152,6 +171,9 @@ export interface TripPayload {
   /** Present only for a caller holding the admin token. */
   viewToken?: string;
   editToken?: string;
+  /** Things the write did that you did not ask for — a base moved to a
+   *  different arrival day, say. The write happened; these are not errors. */
+  warnings?: FieldError[];
 }
 
 export interface TripSummary {

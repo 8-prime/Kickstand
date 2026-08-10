@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"bike-trip/server/internal/nominatim"
 	"bike-trip/server/internal/osrm"
 	"bike-trip/server/internal/store"
 )
@@ -19,6 +20,9 @@ import (
 type Server struct {
 	store *store.Store
 	osrm  *osrm.Client
+	// nominatim is optional: without it the map still works, you just place
+	// stops by dragging rather than by name.
+	nominatim *nominatim.Client
 
 	// adminToken gates the operations that are not about one shared trip:
 	// listing every trip, creating, deleting, and rotating share links.
@@ -37,6 +41,7 @@ type Server struct {
 type Options struct {
 	Store      *store.Store
 	OSRM       *osrm.Client
+	Nominatim  *nominatim.Client
 	AdminToken string
 	Web        http.Handler
 	// AllowOrigin enables CORS for a single origin. Empty means same-origin
@@ -46,7 +51,13 @@ type Options struct {
 
 // New builds the HTTP handler.
 func New(o Options) http.Handler {
-	s := &Server{store: o.Store, osrm: o.OSRM, adminToken: o.AdminToken, web: o.Web}
+	s := &Server{
+		store:      o.Store,
+		osrm:       o.OSRM,
+		nominatim:  o.Nominatim,
+		adminToken: o.AdminToken,
+		web:        o.Web,
+	}
 
 	mux := http.NewServeMux()
 
@@ -71,6 +82,14 @@ func New(o Options) http.Handler {
 	mux.HandleFunc("PUT /api/trips/{token}/kit", s.withTrip(store.AccessEdit, s.putKit))
 	mux.HandleFunc("DELETE /api/trips/{token}/kit", s.withTrip(store.AccessEdit, s.clearKit))
 	mux.HandleFunc("POST /api/trips/{token}/routes/refresh", s.withTrip(store.AccessEdit, s.refreshRoutes))
+
+	// Adding, removing and moving a day renumbers every day after it, which
+	// the log and the route cache are keyed by — so it cannot be a patch.
+	mux.HandleFunc("POST /api/trips/{token}/days", s.withTrip(store.AccessEdit, s.editDays))
+
+	// Geocoding. Edit access: each call spends an upstream request.
+	mux.HandleFunc("GET /api/trips/{token}/places", s.withTrip(store.AccessEdit, s.searchPlaces))
+	mux.HandleFunc("GET /api/trips/{token}/places/reverse", s.withTrip(store.AccessEdit, s.reversePlace))
 
 	// Anything not under /api is the single-page app.
 	if s.web != nil {

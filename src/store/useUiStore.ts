@@ -9,11 +9,17 @@ interface UiState {
   view: ViewId;
   basemap: BasemapId;
   showCamps: boolean;
+  /** True while the map's markers are draggable and clicks place stops.
+   *  A mode rather than an always-on affordance: the same click that adds a
+   *  waypoint is the one you use to pan and read the map the rest of the time. */
+  editing: boolean;
   selectDay: (n: number | null) => void;
   toggleDay: (n: number) => void;
   setView: (v: ViewId) => void;
   setBasemap: (b: BasemapId) => void;
   toggleCamps: () => void;
+  setEditing: (on: boolean) => void;
+  toggleEditing: () => void;
   reset: () => void;
 }
 
@@ -26,11 +32,14 @@ export const useUiStore = create<UiState>((set) => ({
   // Relief is the whole point at Verdon and Turini, so topo leads.
   basemap: "topo",
   showCamps: true,
+  editing: false,
 
   selectDay: (n) => set({ selectedDay: n }),
   toggleDay: (n) => set((s) => ({ selectedDay: s.selectedDay === n ? null : n })),
   setView: (v) => set({ view: v }),
   setBasemap: (b) => set({ basemap: b }),
   toggleCamps: () => set((s) => ({ showCamps: !s.showCamps })),
-  reset: () => set({ selectedDay: null, view: "route" }),
+  setEditing: (on) => set({ editing: on }),
+  toggleEditing: () => set((s) => ({ editing: !s.editing })),
+  reset: () => set({ selectedDay: null, view: "route", editing: false }),
 }));

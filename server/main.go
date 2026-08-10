@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"bike-trip/server/internal/api"
+	"bike-trip/server/internal/nominatim"
 	"bike-trip/server/internal/osrm"
 	"bike-trip/server/internal/store"
 	"bike-trip/server/seed"
@@ -31,20 +32,40 @@ func main() {
 		dbPath      = flag.String("db", envOr("BIKETRIP_DB", "biketrip.db"), "path to the SQLite database")
 		adminToken  = flag.String("admin-token", os.Getenv("BIKETRIP_ADMIN_TOKEN"), "token for creating, listing and deleting trips; generated if empty")
 		allowOrigin = flag.String("allow-origin", os.Getenv("BIKETRIP_ALLOW_ORIGIN"), "CORS origin to allow; empty means same-origin only")
+		geocoder    = flag.String("nominatim", envOr("BIKETRIP_NOMINATIM", nominatim.DefaultBaseURL), "base URL of the Nominatim instance used to look places up")
 		noSeed      = flag.Bool("no-seed", false, "start with an empty database instead of loading the built-in trips")
 	)
 	flag.Parse()
 
 	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelInfo})))
 
-	if err := run(*addr, *dbPath, *adminToken, *allowOrigin, *noSeed); err != nil {
+	cfg := config{
+		addr:        *addr,
+		dbPath:      *dbPath,
+		adminToken:  *adminToken,
+		allowOrigin: *allowOrigin,
+		geocoder:    *geocoder,
+		noSeed:      *noSeed,
+	}
+	if err := run(cfg); err != nil {
 		slog.Error("fatal", "error", err)
 		os.Exit(1)
 	}
 }
 
-func run(addr, dbPath, adminToken, allowOrigin string, noSeed bool) error {
-	st, err := store.Open(dbPath)
+// config is a struct rather than a parameter list because five of these are
+// strings, and a swapped pair would start a server that looks fine and is not.
+type config struct {
+	addr        string
+	dbPath      string
+	adminToken  string
+	allowOrigin string
+	geocoder    string
+	noSeed      bool
+}
+
+func run(cfg config) error {
+	st, err := store.Open(cfg.dbPath)
 	if err != nil {
 		return err
 	}
@@ -53,13 +74,14 @@ func run(addr, dbPath, adminToken, allowOrigin string, noSeed bool) error {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	if !noSeed {
+	if !cfg.noSeed {
 		if err := seedIfEmpty(ctx, st); err != nil {
 			return err
 		}
 	}
 
 	generated := false
+	adminToken := cfg.adminToken
 	if adminToken == "" {
 		adminToken, err = randomToken()
 		if err != nil {
@@ -68,16 +90,20 @@ func run(addr, dbPath, adminToken, allowOrigin string, noSeed bool) error {
 		generated = true
 	}
 
+	geocoder := nominatim.New()
+	geocoder.BaseURL = cfg.geocoder
+
 	handler := api.New(api.Options{
 		Store:       st,
 		OSRM:        osrm.New(),
+		Nominatim:   geocoder,
 		AdminToken:  adminToken,
-		AllowOrigin: allowOrigin,
+		AllowOrigin: cfg.allowOrigin,
 		Web:         web.Handler(),
 	})
 
 	srv := &http.Server{
-		Addr:              addr,
+		Addr:              cfg.addr,
 		Handler:           handler,
 		ReadHeaderTimeout: 10 * time.Second,
 		// Routing a whole region walks the upstream router one day at a time,
@@ -86,7 +112,7 @@ func run(addr, dbPath, adminToken, allowOrigin string, noSeed bool) error {
 		IdleTimeout:  2 * time.Minute,
 	}
 
-	slog.Info("listening", "addr", addr, "db", dbPath)
+	slog.Info("listening", "addr", cfg.addr, "db", cfg.dbPath, "geocoder", cfg.geocoder)
 	if generated {
 		// Printed, not stored: it is needed to create or list trips, and a
 		// fixed one belongs in BIKETRIP_ADMIN_TOKEN so it survives a restart.

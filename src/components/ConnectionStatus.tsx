@@ -9,8 +9,10 @@ export function ConnectionStatus() {
   const fromCache = useTripStore((s) => s.fromCache);
   const cachedAt = useTripStore((s) => s.cachedAt);
   const error = useTripStore((s) => s.error);
+  const notice = useTripStore((s) => s.notice);
+  const dismissNotice = useTripStore((s) => s.dismissNotice);
 
-  if (online && !pending && !fromCache && !error) return null;
+  if (online && !pending && !fromCache && !error && !notice) return null;
 
   const parts: string[] = [];
   if (!online) parts.push("Offline");
@@ -28,6 +30,18 @@ export function ConnectionStatus() {
       {parts.length > 0 && <span>{parts.join(" · ")}. </span>}
       {!online && pending > 0 && <span>They will go up when you have signal again. </span>}
       {error && <span>{error}</span>}
+      {notice && (
+        <span>
+          {notice}{" "}
+          <button
+            type="button"
+            onClick={dismissNotice}
+            className="underline underline-offset-2 hover:text-ink"
+          >
+            Dismiss
+          </button>
+        </span>
+      )}
     </div>
   );
 }

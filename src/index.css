@@ -130,6 +130,19 @@
   background: var(--color-paper);
   border: 2px solid var(--color-ink);
 }
+/* In edit mode a stop is a handle, not a mark: big enough to grab with a
+   thumb, and coloured so it is obvious which dots move. */
+.stop-dot--edit {
+  width: 17px;
+  height: 17px;
+  border-color: var(--color-ride);
+  border-width: 3px;
+  box-shadow: 0 1px 4px rgb(19 26 30 / 0.35);
+  cursor: grab;
+}
+.stop-dot--edit:active {
+  cursor: grabbing;
+}
 .base-pin {
   width: 26px;
   height: 26px;

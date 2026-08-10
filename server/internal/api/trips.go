@@ -29,6 +29,10 @@ type tripPayload struct {
 	// the share links without a separate request.
 	ViewToken string `json:"viewToken,omitempty"`
 	EditToken string `json:"editToken,omitempty"`
+	// Things the write did that the caller did not ask for and should know
+	// about — a base moved to a different arrival day, say. Not errors: the
+	// write happened.
+	Warnings []trip.FieldError `json:"warnings,omitempty"`
 }
 
 func (s *Server) listTrips(w http.ResponseWriter, r *http.Request) {
@@ -316,7 +320,10 @@ func parseIfMatch(w http.ResponseWriter, r *http.Request) (int, bool) {
 	return n, true
 }
 
-func (s *Server) respondWithTrip(w http.ResponseWriter, r *http.Request, t *store.Trip) {
+// respondWithTrip returns the saved trip. Warnings are variadic because almost
+// no write produces any, and the ones that do should not make every other call
+// site pass nil.
+func (s *Server) respondWithTrip(w http.ResponseWriter, r *http.Request, t *store.Trip, warnings ...trip.FieldError) {
 	logEntries, _ := s.store.Log(r.Context(), t.ID)
 	kit, _ := s.store.KitState(r.Context(), t.ID)
 	routes, _ := s.store.Routes(r.Context(), t.ID)
@@ -326,5 +333,6 @@ func (s *Server) respondWithTrip(w http.ResponseWriter, r *http.Request, t *stor
 	writeJSON(w, http.StatusOK, tripPayload{
 		ID: t.ID, Slug: t.Slug, Name: t.Name, Revision: t.Revision,
 		Access: access, Doc: t.Doc, Log: logEntries, Kit: kit, Routes: routes,
+		Warnings: warnings,
 	})
 }

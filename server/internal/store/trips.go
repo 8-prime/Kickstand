@@ -171,6 +171,20 @@ func (s *Store) TripByToken(ctx context.Context, token string) (*Trip, Access, e
 // Tokens, log entries and cached routes are untouched — replacing the plan
 // does not throw away what people have written against it.
 func (s *Store) ReplaceDoc(ctx context.Context, id string, doc *trip.Trip, ifRevision int) (*Trip, error) {
+	return s.replaceDoc(ctx, id, doc, ifRevision, nil)
+}
+
+// replaceDoc writes the document and, if extra is non-nil, runs it inside the
+// same transaction. ReplaceDocAndRemap is the reason it exists: renumbering
+// days and moving the rows keyed by those numbers must not be separable, or a
+// crash between the two leaves everyone's log attached to the wrong days.
+func (s *Store) replaceDoc(
+	ctx context.Context,
+	id string,
+	doc *trip.Trip,
+	ifRevision int,
+	extra func(context.Context, *sql.Tx) error,
+) (*Trip, error) {
 	raw, err := json.Marshal(doc)
 	if err != nil {
 		return nil, fmt.Errorf("encode document: %w", err)
@@ -205,6 +219,13 @@ func (s *Store) ReplaceDoc(ctx context.Context, id string, doc *trip.Trip, ifRev
 		}
 		return nil, fmt.Errorf("update trip: %w", err)
 	}
+
+	if extra != nil {
+		if err := extra(ctx, tx); err != nil {
+			return nil, err
+		}
+	}
+
 	if err := tx.Commit(); err != nil {
 		return nil, fmt.Errorf("commit: %w", err)
 	}
