@@ -1,0 +1,165 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css" layer(base);
+
+/* ============================================================
+   Tokens — IGN topo paper, French road signage, rally roadbook.
+   rose = riding, kelp = van transfer (carried over from the
+   prior tools, where the meaning is already established).
+   ============================================================ */
+@theme {
+  --color-paper: #eae7dd;
+  --color-paper-deep: #dbd5c6;
+  --color-paper-edge: #c8c0ac;
+  --color-ink: #131a1e;
+  --color-ink-soft: #4c5c63;
+  --color-ride: #b4657b;
+  --color-transfer: #4a6b5d;
+  --color-alert: #c0522a;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-data: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --radius-*: initial;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    /* Faint contour hatch — the paper the whole thing is printed on. */
+    background-image: repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-paper-edge) 26%, transparent) 0 1px,
+      transparent 1px 64px
+    );
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-alert);
+    outline-offset: 2px;
+  }
+
+  input,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer components {
+  /* Eyebrow: the small stamped label above a block. */
+  .eyebrow {
+    font-family: var(--font-data);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--color-ink);
+    opacity: 0.24;
+  }
+
+  .panel {
+    background: color-mix(in srgb, var(--color-paper-deep) 55%, var(--color-paper));
+    border: 1px solid var(--color-paper-edge);
+  }
+
+  .field {
+    background: var(--color-paper);
+    border: 1px solid var(--color-paper-edge);
+    padding: 6px 8px;
+    font-family: var(--font-data);
+    font-size: 13px;
+  }
+  .field:focus {
+    border-color: var(--color-ink);
+  }
+}
+
+/* ============================== Leaflet ============================== */
+.leaflet-container {
+  background: #cbd9dc;
+  font-family: var(--font-body);
+}
+.leaflet-control-attribution {
+  font-family: var(--font-data);
+  font-size: 9px !important;
+  background: color-mix(in srgb, var(--color-paper) 88%, transparent) !important;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  border-radius: 2px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 0 2px 10px rgb(19 26 30 / 0.25);
+}
+.leaflet-popup-content {
+  margin: 9px 12px;
+  font-size: 13px;
+}
+
+.stop-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+}
+.base-pin {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-data);
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid var(--color-paper);
+  box-shadow: 0 1px 5px rgb(19 26 30 / 0.4);
+}
+.camp-pin {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  background: var(--color-paper);
+  color: var(--color-transfer);
+  font-size: 12px;
+  border: 1.5px solid var(--color-transfer);
+  box-shadow: 0 1px 4px rgb(19 26 30 / 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

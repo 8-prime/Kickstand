@@ -1,0 +1,33 @@
+# Compiled binary (module name: bike-trip/server)
+server
+server.exe
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test and profiling output
+*.test
+*.out
+coverage.txt
+
+# Go workspace files
+go.work
+go.work.sum
+
+# SQLite database and its journal files
+*.db
+*.db-shm
+*.db-wal
+
+# Local environment overrides
+.env
+.env.local
+
+# The frontend build is copied in here for go:embed. Keep the directory
+# (go:embed needs a match to compile at all) but not the build output.
+# The first line undoes the root .gitignore's `dist/`, which would otherwise
+# exclude the whole directory and make the .gitkeep negation below unreachable.
+!web/dist/
+web/dist/*
+!web/dist/.gitkeep

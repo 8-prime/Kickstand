@@ -1,0 +1,813 @@
+{
+  "schemaVersion": 1,
+  "slug": "provence",
+  "name": "Alpes Maritimes",
+  "subtitle": "Provence & the Riviera",
+  "origin": "Bremen",
+  "dates": "7–17 September 2026",
+  "bounds": {
+    "lat0": 43,
+    "lat1": 44.4,
+    "lon0": 4.9,
+    "lon1": 7.8
+  },
+  "vanIn": 1450,
+  "vanOut": 1250,
+  "bases": [
+    {
+      "index": 1,
+      "name": "Sospel",
+      "lat": 43.876,
+      "lon": 7.448,
+      "arriveDay": 1,
+      "nights": "nights 1–3"
+    },
+    {
+      "index": 2,
+      "name": "Castellane",
+      "lat": 43.847,
+      "lon": 6.513,
+      "arriveDay": 4,
+      "nights": "nights 4–6"
+    },
+    {
+      "index": 3,
+      "name": "Cassis",
+      "lat": 43.215,
+      "lon": 5.539,
+      "arriveDay": 7,
+      "nights": "nights 7–8"
+    },
+    {
+      "index": 4,
+      "name": "Luberon",
+      "lat": 43.823,
+      "lon": 5.308,
+      "arriveDay": 9,
+      "nights": "nights 9–10"
+    }
+  ],
+  "days": [
+    {
+      "n": 1,
+      "date": "Mon 7 Sep",
+      "type": "van",
+      "title": "Bremen → Sospel",
+      "base": "Base 1 · Sospel · nights 1–3",
+      "detail": "The big one. ~1 450 km via Basel, Bern and the Rhône valley — two drivers, 05:00 start, camp by dusk. If that sounds brutal, break it near Beaune and arrive midday on the 8th; you lose half a riding day but nobody arrives wrecked.",
+      "km": 0,
+      "van": 1450,
+      "hours": 0,
+      "stops": []
+    },
+    {
+      "n": 2,
+      "date": "Tue 8 Sep",
+      "type": "ride",
+      "title": "Col de Turini",
+      "base": "Base 1 · Sospel",
+      "detail": "The Monte Carlo Rally stage — 34 hairpins up from Sospel. Then Peïra-Cava, Col Saint-Roch, the hill village of Lucéram, home over Col de Braus. Short distance, enormous amount of cornering.",
+      "km": 230,
+      "van": 0,
+      "hours": 5,
+      "stops": [
+        {
+          "name": "Sospel",
+          "lat": 43.876,
+          "lon": 7.448
+        },
+        {
+          "name": "Col de Turini",
+          "lat": 44,
+          "lon": 7.38
+        },
+        {
+          "name": "Peïra-Cava",
+          "lat": 43.955,
+          "lon": 7.354
+        },
+        {
+          "name": "Col Saint-Roch",
+          "lat": 43.923,
+          "lon": 7.343
+        },
+        {
+          "name": "Lucéram",
+          "lat": 43.884,
+          "lon": 7.361
+        },
+        {
+          "name": "Col de Braus",
+          "lat": 43.877,
+          "lon": 7.398
+        },
+        {
+          "name": "Sospel",
+          "lat": 43.876,
+          "lon": 7.448
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "date": "Wed 9 Sep",
+      "type": "ride",
+      "title": "Gorges du Loup & the Corniches",
+      "base": "Base 1 · Sospel",
+      "detail": "West to Col de Vence and the cliff village of Gourdon, down the Gorges du Loup, then back east along the three Corniches above Monaco. Ride the Corniches late — the light is better and the traffic has gone.",
+      "km": 250,
+      "van": 0,
+      "hours": 5.5,
+      "stops": [
+        {
+          "name": "Sospel",
+          "lat": 43.876,
+          "lon": 7.448
+        },
+        {
+          "name": "Nice",
+          "lat": 43.7,
+          "lon": 7.27
+        },
+        {
+          "name": "Vence",
+          "lat": 43.723,
+          "lon": 7.112
+        },
+        {
+          "name": "Col de Vence",
+          "lat": 43.76,
+          "lon": 7.077
+        },
+        {
+          "name": "Gourdon",
+          "lat": 43.72,
+          "lon": 6.978
+        },
+        {
+          "name": "Gorges du Loup",
+          "lat": 43.752,
+          "lon": 6.985
+        },
+        {
+          "name": "Grasse",
+          "lat": 43.658,
+          "lon": 6.925
+        },
+        {
+          "name": "Èze",
+          "lat": 43.727,
+          "lon": 7.362
+        },
+        {
+          "name": "Monaco",
+          "lat": 43.738,
+          "lon": 7.424
+        },
+        {
+          "name": "Sospel",
+          "lat": 43.876,
+          "lon": 7.448
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "date": "Thu 10 Sep",
+      "type": "van",
+      "title": "Sospel → Castellane",
+      "base": "Base 2 · Castellane · nights 4–6",
+      "detail": "Strike camp, ~150 km inland via Grasse. Pitch by early afternoon, then a shakeout run north on the Route Napoléon.",
+      "km": 120,
+      "van": 150,
+      "hours": 2.5,
+      "stops": [
+        {
+          "name": "Castellane",
+          "lat": 43.847,
+          "lon": 6.513
+        },
+        {
+          "name": "Senez",
+          "lat": 43.909,
+          "lon": 6.397
+        },
+        {
+          "name": "Barrême",
+          "lat": 43.951,
+          "lon": 6.368
+        },
+        {
+          "name": "Castellane",
+          "lat": 43.847,
+          "lon": 6.513
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "date": "Fri 11 Sep",
+      "type": "ride",
+      "title": "Gorges du Verdon circuit",
+      "base": "Base 2 · Castellane",
+      "detail": "The Route des Crêtes (D23) is one-way and rides clockwise — do it first, early. Then the Corniche Sublime along the south rim, around Lac de Sainte-Croix and back via Moustiers. Slow going: you will stop constantly.",
+      "km": 230,
+      "van": 0,
+      "hours": 5.5,
+      "stops": [
+        {
+          "name": "Castellane",
+          "lat": 43.847,
+          "lon": 6.513
+        },
+        {
+          "name": "Point Sublime",
+          "lat": 43.797,
+          "lon": 6.4
+        },
+        {
+          "name": "La Palud-sur-Verdon",
+          "lat": 43.783,
+          "lon": 6.343
+        },
+        {
+          "name": "Moustiers",
+          "lat": 43.846,
+          "lon": 6.222
+        },
+        {
+          "name": "Lac de Sainte-Croix",
+          "lat": 43.76,
+          "lon": 6.213
+        },
+        {
+          "name": "Aiguines",
+          "lat": 43.769,
+          "lon": 6.23
+        },
+        {
+          "name": "Corniche Sublime",
+          "lat": 43.75,
+          "lon": 6.29
+        },
+        {
+          "name": "Comps-sur-Artuby",
+          "lat": 43.706,
+          "lon": 6.51
+        },
+        {
+          "name": "Castellane",
+          "lat": 43.847,
+          "lon": 6.513
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "date": "Sat 12 Sep",
+      "type": "ride",
+      "title": "Gorges du Cians & Daluis",
+      "base": "Base 2 · Castellane",
+      "detail": "North-east via Entrevaux into the red-rock gorges — Daluis up, Cians down, or the reverse. Deep red schist, tunnels cut straight through the rock. The best-kept secret of the region.",
+      "km": 290,
+      "van": 0,
+      "hours": 6,
+      "stops": [
+        {
+          "name": "Castellane",
+          "lat": 43.847,
+          "lon": 6.513
+        },
+        {
+          "name": "Entrevaux",
+          "lat": 43.948,
+          "lon": 6.812
+        },
+        {
+          "name": "Gorges de Daluis",
+          "lat": 44.058,
+          "lon": 6.827
+        },
+        {
+          "name": "Guillaumes",
+          "lat": 44.093,
+          "lon": 6.851
+        },
+        {
+          "name": "Beuil",
+          "lat": 44.093,
+          "lon": 6.995
+        },
+        {
+          "name": "Gorges du Cians",
+          "lat": 44.01,
+          "lon": 7.005
+        },
+        {
+          "name": "Touët-sur-Var",
+          "lat": 43.958,
+          "lon": 6.995
+        },
+        {
+          "name": "Puget-Théniers",
+          "lat": 43.955,
+          "lon": 6.895
+        },
+        {
+          "name": "Castellane",
+          "lat": 43.847,
+          "lon": 6.513
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "date": "Sun 13 Sep",
+      "type": "van",
+      "title": "Castellane → Cassis",
+      "base": "Base 3 · Cassis · nights 7–8",
+      "detail": "~190 km south-west to the coast. Once the tent is up, ride the Route des Crêtes over Cap Canaille — the highest sea cliffs in France, and about 20 minutes from camp.",
+      "km": 90,
+      "van": 190,
+      "hours": 2,
+      "stops": [
+        {
+          "name": "Cassis",
+          "lat": 43.215,
+          "lon": 5.539
+        },
+        {
+          "name": "Cap Canaille",
+          "lat": 43.19,
+          "lon": 5.56
+        },
+        {
+          "name": "Route des Crêtes",
+          "lat": 43.183,
+          "lon": 5.583
+        },
+        {
+          "name": "La Ciotat",
+          "lat": 43.175,
+          "lon": 5.605
+        },
+        {
+          "name": "Cassis",
+          "lat": 43.215,
+          "lon": 5.539
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "date": "Mon 14 Sep",
+      "type": "ride",
+      "title": "Sainte-Baume & the Var coast",
+      "base": "Base 3 · Cassis",
+      "detail": "Inland over the Sainte-Baume massif, down the Gorges d'Ollioules, then the coast road through Bandol, Sanary and Six-Fours. Note the Calanques themselves are closed to vehicles — they are a walk, not a ride.",
+      "km": 230,
+      "van": 0,
+      "hours": 5,
+      "stops": [
+        {
+          "name": "Cassis",
+          "lat": 43.215,
+          "lon": 5.539
+        },
+        {
+          "name": "Aubagne",
+          "lat": 43.293,
+          "lon": 5.57
+        },
+        {
+          "name": "Plan-d'Aups",
+          "lat": 43.335,
+          "lon": 5.727
+        },
+        {
+          "name": "Signes",
+          "lat": 43.288,
+          "lon": 5.868
+        },
+        {
+          "name": "Ollioules",
+          "lat": 43.14,
+          "lon": 5.848
+        },
+        {
+          "name": "Sanary-sur-Mer",
+          "lat": 43.12,
+          "lon": 5.8
+        },
+        {
+          "name": "Bandol",
+          "lat": 43.135,
+          "lon": 5.753
+        },
+        {
+          "name": "Cassis",
+          "lat": 43.215,
+          "lon": 5.539
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "date": "Tue 15 Sep",
+      "type": "van",
+      "title": "Cassis → Luberon",
+      "base": "Base 4 · Luberon · nights 9–10",
+      "detail": "~130 km north to Bonnieux or Apt. Afternoon loop through the perched villages: Lourmarin, Ménerbes, Gordes, Roussillon.",
+      "km": 110,
+      "van": 130,
+      "hours": 2.5,
+      "stops": [
+        {
+          "name": "Bonnieux",
+          "lat": 43.823,
+          "lon": 5.308
+        },
+        {
+          "name": "Lourmarin",
+          "lat": 43.764,
+          "lon": 5.363
+        },
+        {
+          "name": "Ménerbes",
+          "lat": 43.832,
+          "lon": 5.204
+        },
+        {
+          "name": "Gordes",
+          "lat": 43.911,
+          "lon": 5.2
+        },
+        {
+          "name": "Roussillon",
+          "lat": 43.903,
+          "lon": 5.293
+        },
+        {
+          "name": "Bonnieux",
+          "lat": 43.823,
+          "lon": 5.308
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "date": "Wed 16 Sep",
+      "type": "ride",
+      "title": "Mont Ventoux & Gorges de la Nesque",
+      "base": "Base 4 · Luberon",
+      "detail": "Up the classic Bédoin side, down to Malaucène, across the Sault plateau and back through the Gorges de la Nesque. Check the summit road before you set off — it closes for wind more often than people expect.",
+      "km": 280,
+      "van": 0,
+      "hours": 6,
+      "stops": [
+        {
+          "name": "Bonnieux",
+          "lat": 43.823,
+          "lon": 5.308
+        },
+        {
+          "name": "Apt",
+          "lat": 43.877,
+          "lon": 5.396
+        },
+        {
+          "name": "Bédoin",
+          "lat": 44.124,
+          "lon": 5.181
+        },
+        {
+          "name": "Mont Ventoux",
+          "lat": 44.174,
+          "lon": 5.278
+        },
+        {
+          "name": "Malaucène",
+          "lat": 44.174,
+          "lon": 5.132
+        },
+        {
+          "name": "Sault",
+          "lat": 44.092,
+          "lon": 5.41
+        },
+        {
+          "name": "Gorges de la Nesque",
+          "lat": 44.037,
+          "lon": 5.316
+        },
+        {
+          "name": "Bonnieux",
+          "lat": 43.823,
+          "lon": 5.308
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "date": "Thu 17 Sep",
+      "type": "van",
+      "title": "Luberon → Bremen",
+      "base": "Trip ends",
+      "detail": "~1 250 km home, 200 km shorter than the way down. That is the whole reason for running the route east to west.",
+      "km": 0,
+      "van": 1250,
+      "hours": 0,
+      "stops": []
+    }
+  ],
+  "campsites": [
+    {
+      "base": 1,
+      "baseName": "Sospel",
+      "status": "picked",
+      "name": "Camping Domaine Sainte Madeleine",
+      "rating": 4.6,
+      "reviews": 362,
+      "phone": "+33 4 93 04 10 48",
+      "lat": 43.876,
+      "lon": 7.448,
+      "coordsApprox": true,
+      "note": "On the Route du Moulinet — already pointing at Turini. No barbecues. Mountain site, so it closes earlier than the coast: confirm before you rely on it.",
+      "closingDateVerified": false
+    },
+    {
+      "base": 2,
+      "baseName": "Castellane",
+      "status": "picked",
+      "name": "Camping Chasteuil Verdon Provence",
+      "rating": 4.5,
+      "reviews": 886,
+      "phone": "+33 4 92 83 61 21",
+      "lat": 43.847,
+      "lon": 6.513,
+      "coordsApprox": true,
+      "note": "On the D952, about 15 minutes from Point Sublime. The other mountain site — same closing-date question as Sospel.",
+      "closingDateVerified": false
+    },
+    {
+      "base": 3,
+      "baseName": "Cassis",
+      "status": "picked",
+      "name": "Camping Ceyreste",
+      "rating": 4.3,
+      "reviews": 1286,
+      "phone": "+33 4 42 83 07 68",
+      "lat": 43.215,
+      "lon": 5.539,
+      "coordsApprox": true,
+      "note": "Between Cassis and La Ciotat, right by the Route des Crêtes.",
+      "closingDateVerified": false
+    },
+    {
+      "base": 4,
+      "baseName": "Luberon",
+      "status": "picked",
+      "name": "Camping Le Luberon / Pausado",
+      "rating": 4.4,
+      "reviews": 755,
+      "phone": "+33 4 86 86 13 13",
+      "lat": 43.823,
+      "lon": 5.308,
+      "coordsApprox": true,
+      "note": "Near Apt, so closer to Ventoux than a Bonnieux pitch would be. Confirmed open late season.",
+      "closingDateVerified": false
+    }
+  ],
+  "rejectedCampsites": [
+    "Le Mas Fleuri — late-September cleanliness reports",
+    "La Ferme de Castellane — rated higher, but badly placed for the Verdon",
+    "Les Cigales — dated, stony ground",
+    "Le Vallon du Luberon — small pitches, hot water complaints"
+  ],
+  "campsiteCaveat": "Coastal campsites in Brittany and Normandy close between 15 and 30 September — the Bayeux end of Plan A sits inside that window. Provence runs later, but the mountain sites at Sospel and Castellane close earlier than the coast. No closing date here has been confirmed. These need phone calls, not more reading.",
+  "kit": [
+    {
+      "group": "Required by French law",
+      "legal": true,
+      "items": [
+        {
+          "id": "law-helmet-stickers",
+          "title": "Four reflective stickers per helmet",
+          "why": "Front, back and both sides, at least 18 cm² each. Without them a helmet counts as unapproved in France — €135. Applies to foreign riders too.",
+          "flag": "€135"
+        },
+        {
+          "id": "law-gloves",
+          "title": "CE-approved gloves, rider and pillion",
+          "why": "Mandatory since 2016. Ordinary gloves do not count — look for the CE / EN 13594 mark.",
+          "flag": "€68"
+        },
+        {
+          "id": "law-hivis",
+          "title": "Hi-vis vest per rider, reachable from the saddle",
+          "why": "The law says within reach while seated, so tank bag or under the seat — not buried in a pannier. Fine rises sharply if you are stopped at the roadside without it.",
+          "flag": "€135"
+        },
+        {
+          "id": "law-headlight",
+          "title": "Dipped headlight on at all times",
+          "why": "Required day and night for motorcycles."
+        },
+        {
+          "id": "law-critair",
+          "title": "Crit’Air sticker — you will need one",
+          "why": "Nice, Marseille, Aix and Toulon all run low-emission zones and you ride through that arc repeatedly. Order online weeks ahead; it costs a few euros and arrives by post.",
+          "flag": "NEEDED"
+        }
+      ]
+    },
+    {
+      "group": "Documents",
+      "items": [
+        {
+          "id": "doc-insurance-bike",
+          "title": "Insurance certificate for each bike",
+          "why": "A green card is no longer needed between EU countries, but carry your Versicherungsbestätigung anyway — it settles roadside questions fast."
+        },
+        {
+          "id": "doc-insurance-cargo",
+          "title": "Insurance for the bikes while inside the transporter",
+          "why": "The gap people miss. Many motor policies do not cover a bike being carried as cargo. Confirm with your insurer in writing before you load.",
+          "flag": "CHECK"
+        },
+        {
+          "id": "doc-zulassung",
+          "title": "Zulassungsbescheinigung Teil I for every vehicle",
+          "why": "Bikes and the transporter."
+        },
+        {
+          "id": "doc-licences",
+          "title": "Driving licences and ID or passports"
+        },
+        {
+          "id": "doc-ehic",
+          "title": "EHIC / European health card",
+          "why": "On the back of your German Krankenkasse card."
+        },
+        {
+          "id": "doc-breakdown",
+          "title": "Breakdown cover valid in France, including bike recovery",
+          "why": "Check the policy covers a motorcycle and, separately, the transporter."
+        },
+        {
+          "id": "doc-permission",
+          "title": "Written permission if you ride a bike registered to someone else"
+        }
+      ]
+    },
+    {
+      "group": "Transporter",
+      "items": [
+        {
+          "id": "van-straps",
+          "title": "Ratchet straps and soft loops",
+          "why": "Four points per bike. Soft loops save your bars and fork tubes."
+        },
+        {
+          "id": "van-chock",
+          "title": "Front wheel chock or a proper front strap setup"
+        },
+        {
+          "id": "van-ramp",
+          "title": "Loading ramp"
+        },
+        {
+          "id": "van-weight",
+          "title": "Check total weight and axle load with bikes aboard"
+        },
+        {
+          "id": "van-parking",
+          "title": "Somewhere secure to leave the empty van at each campsite",
+          "why": "Ask when booking — some sites charge for a second vehicle or cap length."
+        }
+      ]
+    },
+    {
+      "group": "Bike prep",
+      "items": [
+        {
+          "id": "bike-tyres",
+          "title": "Tyres with real tread left",
+          "why": "Hot tarmac and hairpins chew edges. You are cornering hard for ten days — start with more tread than you think you need."
+        },
+        {
+          "id": "bike-service",
+          "title": "Chain, brake pads, fluids checked"
+        },
+        {
+          "id": "bike-puncture",
+          "title": "Puncture repair kit and a mini compressor"
+        },
+        {
+          "id": "bike-tools",
+          "title": "Basic tools and a spare clutch or brake lever"
+        },
+        {
+          "id": "bike-bulbs",
+          "title": "Bulbs and fuses"
+        },
+        {
+          "id": "bike-lube",
+          "title": "Chain lube",
+          "why": "Coastal salt air and rain will strip it inside a week."
+        }
+      ]
+    },
+    {
+      "group": "Riding kit",
+      "items": [
+        {
+          "id": "kit-rain",
+          "title": "Rain gear you actually trust",
+          "why": "Not for drizzle — for a Mediterranean downpour that arrives in ten minutes."
+        },
+        {
+          "id": "kit-layers",
+          "title": "Both warm and vented layers",
+          "why": "28 °C in the Rhône valley, 10 °C at the top of Ventoux or Turini, on the same day. You need the full range."
+        },
+        {
+          "id": "kit-visor-pair",
+          "title": "Clear visor and a tinted one",
+          "why": "Harsh southern glare by day, but the gorges go dark early."
+        },
+        {
+          "id": "kit-earplugs",
+          "title": "Earplugs"
+        },
+        {
+          "id": "kit-intercom",
+          "title": "Intercom, charged"
+        }
+      ]
+    },
+    {
+      "group": "Camping",
+      "items": [
+        {
+          "id": "camp-tent-rock",
+          "title": "Tent that handles wind, plus rock pegs",
+          "why": "Provençal ground is stony and hard — soft alloy pegs bend. The mistral will find any weakness in a pitch."
+        },
+        {
+          "id": "camp-closing",
+          "title": "Campsite closing dates confirmed",
+          "why": "Provence runs later than the Atlantic — many sites stay open to mid-October — but mountain sites at Sospel and Castellane close earlier. Confirm those two.",
+          "flag": "CHECK"
+        },
+        {
+          "id": "camp-cover",
+          "title": "Bike cover"
+        },
+        {
+          "id": "camp-gas",
+          "title": "Camping gas — buy in France",
+          "why": "Cartridges cannot legally travel in the van. Pick up locally. Note fire restrictions may ban open flames in the Var in dry spells."
+        },
+        {
+          "id": "camp-torch",
+          "title": "Head torch per person"
+        }
+      ]
+    },
+    {
+      "group": "Practical",
+      "items": [
+        {
+          "id": "prac-cash",
+          "title": "Cash and a second bank card",
+          "why": "Rural French pumps are card-only after hours and sometimes reject foreign cards. Do not let the tank get low on a Sunday evening."
+        },
+        {
+          "id": "prac-offline-maps",
+          "title": "Offline maps downloaded",
+          "why": "No signal at the bottom of the Verdon, the Cians or the Daluis."
+        },
+        {
+          "id": "prac-sun",
+          "title": "Sunscreen and a hydration pack",
+          "why": "Early September in Provence still runs to 30 °C. Dehydration creeps up on you inside riding gear."
+        },
+        {
+          "id": "prac-tolls",
+          "title": "Autoroute toll payment sorted",
+          "why": "The van run down is heavily tolled — roughly €120 each way in France. Carry a card that works at unmanned barriers, plus cash."
+        },
+        {
+          "id": "prac-meteo",
+          "title": "Météo-France vigilance app installed",
+          "why": "Orange and red alerts for storms are issued by département and are the fastest way to know a riding day is off."
+        },
+        {
+          "id": "prac-112",
+          "title": "Emergency number 112, and a contact left at home"
+        }
+      ]
+    }
+  ]
+}

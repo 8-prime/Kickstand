@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.local
+.DS_Store
+
+# Go build output and the frontend copied in for embedding
+server/server
+server/server.exe
+# The built app is copied in here for embedding. Keep the directory (go:embed
+# needs a match to compile at all) but not what the build puts in it.
+server/web/dist/*
+!server/web/dist/.gitkeep
+*.db
+*.db-shm
+*.db-wal

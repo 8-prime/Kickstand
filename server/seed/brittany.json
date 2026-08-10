@@ -1,0 +1,715 @@
+{
+  "schemaVersion": 1,
+  "slug": "brittany",
+  "name": "Côte Atlantique",
+  "subtitle": "Brittany & Normandy",
+  "origin": "Bremen",
+  "dates": "7–17 September 2026",
+  "bounds": {
+    "lat0": 47.9,
+    "lat1": 49.65,
+    "lon0": -4.95,
+    "lon1": -0.35
+  },
+  "vanIn": 1250,
+  "vanOut": 900,
+  "bases": [
+    {
+      "index": 1,
+      "name": "Crozon",
+      "lat": 48.246,
+      "lon": -4.49,
+      "arriveDay": 1,
+      "nights": "nights 1–3"
+    },
+    {
+      "index": 2,
+      "name": "Perros-Guirec",
+      "lat": 48.815,
+      "lon": -3.445,
+      "arriveDay": 4,
+      "nights": "nights 4–6"
+    },
+    {
+      "index": 3,
+      "name": "Saint-Malo",
+      "lat": 48.649,
+      "lon": -2.018,
+      "arriveDay": 7,
+      "nights": "nights 7–8"
+    },
+    {
+      "index": 4,
+      "name": "Bayeux",
+      "lat": 49.276,
+      "lon": -0.703,
+      "arriveDay": 9,
+      "nights": "nights 9–10"
+    }
+  ],
+  "days": [
+    {
+      "n": 1,
+      "date": "Mon 7 Sep",
+      "type": "van",
+      "title": "Bremen → Crozon",
+      "base": "Base 1 · Crozon · nights 1–3",
+      "detail": "The long one, done while everyone is fresh. ~1 250 km of autobahn and autoroute. Two drivers, early start, pitch at dusk.",
+      "km": 0,
+      "van": 1250,
+      "hours": 0,
+      "stops": []
+    },
+    {
+      "n": 2,
+      "date": "Tue 8 Sep",
+      "type": "ride",
+      "title": "Crozon & Menez-Hom",
+      "base": "Base 1 · Crozon",
+      "detail": "Camaret-sur-Mer, Pointe de Pen-Hir, Cap de la Chèvre — then out of the peninsula rather than doubling back: the Aulne estuary, Menez-Hom, Locronan, home along the Douarnenez bay.",
+      "km": 260,
+      "van": 0,
+      "hours": 5,
+      "stops": [
+        {
+          "name": "Crozon",
+          "lat": 48.246,
+          "lon": -4.49
+        },
+        {
+          "name": "Camaret-sur-Mer",
+          "lat": 48.276,
+          "lon": -4.594
+        },
+        {
+          "name": "Pointe de Pen-Hir",
+          "lat": 48.253,
+          "lon": -4.622
+        },
+        {
+          "name": "Cap de la Chèvre",
+          "lat": 48.166,
+          "lon": -4.548
+        },
+        {
+          "name": "Landévennec",
+          "lat": 48.291,
+          "lon": -4.267
+        },
+        {
+          "name": "Menez-Hom",
+          "lat": 48.223,
+          "lon": -4.235
+        },
+        {
+          "name": "Locronan",
+          "lat": 48.099,
+          "lon": -4.209
+        },
+        {
+          "name": "Douarnenez",
+          "lat": 48.093,
+          "lon": -4.329
+        },
+        {
+          "name": "Crozon",
+          "lat": 48.246,
+          "lon": -4.49
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "date": "Wed 9 Sep",
+      "type": "ride",
+      "title": "Pointe du Raz & Cap Sizun",
+      "base": "Base 1 · Crozon",
+      "detail": "South around the Baie de Douarnenez to the westernmost headland and the Baie des Trépassés, back along the full Cap Sizun coast road.",
+      "km": 280,
+      "van": 0,
+      "hours": 5.5,
+      "stops": [
+        {
+          "name": "Crozon",
+          "lat": 48.246,
+          "lon": -4.49
+        },
+        {
+          "name": "Douarnenez",
+          "lat": 48.093,
+          "lon": -4.329
+        },
+        {
+          "name": "Audierne",
+          "lat": 48.011,
+          "lon": -4.537
+        },
+        {
+          "name": "Pointe du Raz",
+          "lat": 48.04,
+          "lon": -4.74
+        },
+        {
+          "name": "Baie des Trépassés",
+          "lat": 48.041,
+          "lon": -4.7
+        },
+        {
+          "name": "Pointe du Van",
+          "lat": 48.077,
+          "lon": -4.716
+        },
+        {
+          "name": "Douarnenez",
+          "lat": 48.093,
+          "lon": -4.329
+        },
+        {
+          "name": "Crozon",
+          "lat": 48.246,
+          "lon": -4.49
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "date": "Thu 10 Sep",
+      "type": "van",
+      "title": "Crozon → Perros-Guirec",
+      "base": "Base 2 · Perros-Guirec · nights 4–6",
+      "detail": "Strike camp, ~160 km north across Finistère. Pitch by early afternoon, then ride the Ploumanac'h coast path road. Half a day of light is all you get.",
+      "km": 120,
+      "van": 160,
+      "hours": 2.5,
+      "stops": [
+        {
+          "name": "Perros-Guirec",
+          "lat": 48.815,
+          "lon": -3.445
+        },
+        {
+          "name": "Ploumanac'h",
+          "lat": 48.828,
+          "lon": -3.489
+        },
+        {
+          "name": "Trégastel",
+          "lat": 48.822,
+          "lon": -3.512
+        },
+        {
+          "name": "Perros-Guirec",
+          "lat": 48.815,
+          "lon": -3.445
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "date": "Fri 11 Sep",
+      "type": "ride",
+      "title": "Côte de Granit Rose & Trégor",
+      "base": "Base 2 · Perros-Guirec",
+      "detail": "The pink granite stretch is only ~20 km, so build the day around it: Trégastel and Trébeurden, then the Trégor interior and the Jaudy and Trieux estuaries. Best surface of the trip.",
+      "km": 320,
+      "van": 0,
+      "hours": 6,
+      "stops": [
+        {
+          "name": "Perros-Guirec",
+          "lat": 48.815,
+          "lon": -3.445
+        },
+        {
+          "name": "Trégastel",
+          "lat": 48.822,
+          "lon": -3.512
+        },
+        {
+          "name": "Trébeurden",
+          "lat": 48.769,
+          "lon": -3.567
+        },
+        {
+          "name": "Lannion",
+          "lat": 48.732,
+          "lon": -3.459
+        },
+        {
+          "name": "Tréguier",
+          "lat": 48.784,
+          "lon": -3.231
+        },
+        {
+          "name": "Paimpol",
+          "lat": 48.779,
+          "lon": -3.046
+        },
+        {
+          "name": "Perros-Guirec",
+          "lat": 48.815,
+          "lon": -3.445
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "date": "Sat 12 Sep",
+      "type": "ride",
+      "title": "Baie de Morlaix & Plougasnou",
+      "base": "Base 2 · Perros-Guirec",
+      "detail": "East along the estuaries to Morlaix, out to the Plougasnou headland, home the long way over the Monts d'Arrée foothills.",
+      "km": 300,
+      "van": 0,
+      "hours": 5.5,
+      "stops": [
+        {
+          "name": "Perros-Guirec",
+          "lat": 48.815,
+          "lon": -3.445
+        },
+        {
+          "name": "Lannion",
+          "lat": 48.732,
+          "lon": -3.459
+        },
+        {
+          "name": "Plougasnou",
+          "lat": 48.694,
+          "lon": -3.798
+        },
+        {
+          "name": "Morlaix",
+          "lat": 48.578,
+          "lon": -3.828
+        },
+        {
+          "name": "Huelgoat",
+          "lat": 48.362,
+          "lon": -3.746
+        },
+        {
+          "name": "Guerlesquin",
+          "lat": 48.516,
+          "lon": -3.611
+        },
+        {
+          "name": "Perros-Guirec",
+          "lat": 48.815,
+          "lon": -3.445
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "date": "Sun 13 Sep",
+      "type": "van",
+      "title": "Perros-Guirec → Saint-Malo",
+      "base": "Base 3 · Saint-Malo · nights 7–8",
+      "detail": "~140 km east along the north coast. Afternoon out to Cap Fréhel and Fort la Latte once the tent is up.",
+      "km": 130,
+      "van": 140,
+      "hours": 2.5,
+      "stops": [
+        {
+          "name": "Saint-Malo",
+          "lat": 48.649,
+          "lon": -2.018
+        },
+        {
+          "name": "Fort la Latte",
+          "lat": 48.667,
+          "lon": -2.285
+        },
+        {
+          "name": "Cap Fréhel",
+          "lat": 48.684,
+          "lon": -2.318
+        },
+        {
+          "name": "Saint-Cast",
+          "lat": 48.641,
+          "lon": -2.253
+        },
+        {
+          "name": "Saint-Malo",
+          "lat": 48.649,
+          "lon": -2.018
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "date": "Mon 14 Sep",
+      "type": "ride",
+      "title": "Mont-Saint-Michel & Côte d'Émeraude",
+      "base": "Base 3 · Saint-Malo",
+      "detail": "Down through Dol-de-Bretagne to the bay, up into the Cotentin edge at Granville, back along the Côte d'Émeraude. Go early — the causeway fills by ten.",
+      "km": 260,
+      "van": 0,
+      "hours": 5,
+      "stops": [
+        {
+          "name": "Saint-Malo",
+          "lat": 48.649,
+          "lon": -2.018
+        },
+        {
+          "name": "Dol-de-Bretagne",
+          "lat": 48.549,
+          "lon": -1.75
+        },
+        {
+          "name": "Mont-Saint-Michel",
+          "lat": 48.636,
+          "lon": -1.511
+        },
+        {
+          "name": "Granville",
+          "lat": 48.837,
+          "lon": -1.596
+        },
+        {
+          "name": "Cancale",
+          "lat": 48.677,
+          "lon": -1.851
+        },
+        {
+          "name": "Saint-Malo",
+          "lat": 48.649,
+          "lon": -2.018
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "date": "Tue 15 Sep",
+      "type": "van",
+      "title": "Saint-Malo → Bayeux",
+      "base": "Base 4 · Bayeux · nights 9–10",
+      "detail": "~180 km into Normandy. Afternoon shakeout along the Côte de Nacre once camp is set.",
+      "km": 100,
+      "van": 180,
+      "hours": 2,
+      "stops": [
+        {
+          "name": "Bayeux",
+          "lat": 49.276,
+          "lon": -0.703
+        },
+        {
+          "name": "Arromanches",
+          "lat": 49.34,
+          "lon": -0.622
+        },
+        {
+          "name": "Courseulles",
+          "lat": 49.333,
+          "lon": -0.455
+        },
+        {
+          "name": "Bayeux",
+          "lat": 49.276,
+          "lon": -0.703
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "date": "Wed 16 Sep",
+      "type": "ride",
+      "title": "D-Day beaches & Cotentin",
+      "base": "Base 4 · Bayeux",
+      "detail": "Omaha and Utah, Pointe du Hoc, then as far up the Cotentin as the light allows. Last full day — keep fuel in hand.",
+      "km": 300,
+      "van": 0,
+      "hours": 6,
+      "stops": [
+        {
+          "name": "Bayeux",
+          "lat": 49.276,
+          "lon": -0.703
+        },
+        {
+          "name": "Colleville / Omaha",
+          "lat": 49.36,
+          "lon": -0.855
+        },
+        {
+          "name": "Pointe du Hoc",
+          "lat": 49.397,
+          "lon": -0.989
+        },
+        {
+          "name": "Sainte-Mère-Église",
+          "lat": 49.409,
+          "lon": -1.316
+        },
+        {
+          "name": "Carentan",
+          "lat": 49.304,
+          "lon": -1.245
+        },
+        {
+          "name": "Bayeux",
+          "lat": 49.276,
+          "lon": -0.703
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "date": "Thu 17 Sep",
+      "type": "van",
+      "title": "Bayeux → Bremen",
+      "base": "Trip ends",
+      "detail": "~900 km home. Shorter than the way out, which is the whole point of running the route east.",
+      "km": 0,
+      "van": 900,
+      "hours": 0,
+      "stops": []
+    }
+  ],
+  "campsites": [
+    {
+      "base": 1,
+      "baseName": "Crozon",
+      "status": "not-researched",
+      "closingDateVerified": false
+    },
+    {
+      "base": 2,
+      "baseName": "Perros-Guirec",
+      "status": "not-researched",
+      "closingDateVerified": false
+    },
+    {
+      "base": 3,
+      "baseName": "Saint-Malo",
+      "status": "not-researched",
+      "closingDateVerified": false
+    },
+    {
+      "base": 4,
+      "baseName": "Bayeux",
+      "status": "not-researched",
+      "closingDateVerified": false
+    }
+  ],
+  "rejectedCampsites": [],
+  "campsiteCaveat": "Coastal campsites in Brittany and Normandy close between 15 and 30 September — the Bayeux end of Plan A sits inside that window. Provence runs later, but the mountain sites at Sospel and Castellane close earlier than the coast. No closing date here has been confirmed. These need phone calls, not more reading.",
+  "kit": [
+    {
+      "group": "Required by French law",
+      "legal": true,
+      "items": [
+        {
+          "id": "law-helmet-stickers",
+          "title": "Four reflective stickers per helmet",
+          "why": "Front, back and both sides, at least 18 cm² each. Without them a helmet counts as unapproved in France — €135. Applies to foreign riders too.",
+          "flag": "€135"
+        },
+        {
+          "id": "law-gloves",
+          "title": "CE-approved gloves, rider and pillion",
+          "why": "Mandatory since 2016. Ordinary gloves do not count — look for the CE / EN 13594 mark.",
+          "flag": "€68"
+        },
+        {
+          "id": "law-hivis",
+          "title": "Hi-vis vest per rider, reachable from the saddle",
+          "why": "The law says within reach while seated, so tank bag or under the seat — not buried in a pannier. Fine rises sharply if you are stopped at the roadside without it.",
+          "flag": "€135"
+        },
+        {
+          "id": "law-headlight",
+          "title": "Dipped headlight on at all times",
+          "why": "Required day and night for motorcycles."
+        },
+        {
+          "id": "law-critair",
+          "title": "Crit’Air sticker — check your route",
+          "why": "Low-emission zones cover Rennes and Rouen among others, and rules have been in flux. Order online well ahead if the van route touches a city; the sticker is a few euros and takes days to arrive.",
+          "flag": "CHECK"
+        }
+      ]
+    },
+    {
+      "group": "Documents",
+      "items": [
+        {
+          "id": "doc-insurance-bike",
+          "title": "Insurance certificate for each bike",
+          "why": "A green card is no longer needed between EU countries, but carry your Versicherungsbestätigung anyway — it settles roadside questions fast."
+        },
+        {
+          "id": "doc-insurance-cargo",
+          "title": "Insurance for the bikes while inside the transporter",
+          "why": "The gap people miss. Many motor policies do not cover a bike being carried as cargo. Confirm with your insurer in writing before you load.",
+          "flag": "CHECK"
+        },
+        {
+          "id": "doc-zulassung",
+          "title": "Zulassungsbescheinigung Teil I for every vehicle",
+          "why": "Bikes and the transporter."
+        },
+        {
+          "id": "doc-licences",
+          "title": "Driving licences and ID or passports"
+        },
+        {
+          "id": "doc-ehic",
+          "title": "EHIC / European health card",
+          "why": "On the back of your German Krankenkasse card."
+        },
+        {
+          "id": "doc-breakdown",
+          "title": "Breakdown cover valid in France, including bike recovery",
+          "why": "Check the policy covers a motorcycle and, separately, the transporter."
+        },
+        {
+          "id": "doc-permission",
+          "title": "Written permission if you ride a bike registered to someone else"
+        }
+      ]
+    },
+    {
+      "group": "Transporter",
+      "items": [
+        {
+          "id": "van-straps",
+          "title": "Ratchet straps and soft loops",
+          "why": "Four points per bike. Soft loops save your bars and fork tubes."
+        },
+        {
+          "id": "van-chock",
+          "title": "Front wheel chock or a proper front strap setup"
+        },
+        {
+          "id": "van-ramp",
+          "title": "Loading ramp"
+        },
+        {
+          "id": "van-weight",
+          "title": "Check total weight and axle load with bikes aboard"
+        },
+        {
+          "id": "van-parking",
+          "title": "Somewhere secure to leave the empty van at each campsite",
+          "why": "Ask when booking — some sites charge for a second vehicle or cap length."
+        }
+      ]
+    },
+    {
+      "group": "Bike prep",
+      "items": [
+        {
+          "id": "bike-tyres",
+          "title": "Tyres with real tread left",
+          "why": "Atlantic September means wet granite and wet paint lines. This is the one to not economise on."
+        },
+        {
+          "id": "bike-service",
+          "title": "Chain, brake pads, fluids checked"
+        },
+        {
+          "id": "bike-puncture",
+          "title": "Puncture repair kit and a mini compressor"
+        },
+        {
+          "id": "bike-tools",
+          "title": "Basic tools and a spare clutch or brake lever"
+        },
+        {
+          "id": "bike-bulbs",
+          "title": "Bulbs and fuses"
+        },
+        {
+          "id": "bike-lube",
+          "title": "Chain lube",
+          "why": "Coastal salt air and rain will strip it inside a week."
+        }
+      ]
+    },
+    {
+      "group": "Riding kit",
+      "items": [
+        {
+          "id": "kit-rain",
+          "title": "Rain gear you actually trust",
+          "why": "Expect at least one properly wet day in Finistère."
+        },
+        {
+          "id": "kit-warm",
+          "title": "Warm layer",
+          "why": "Coastal wind makes 16 °C feel a lot colder at speed."
+        },
+        {
+          "id": "kit-visor",
+          "title": "Clear visor or spare",
+          "why": "A dark visor is useless in Breton drizzle at 19:30."
+        },
+        {
+          "id": "kit-earplugs",
+          "title": "Earplugs"
+        },
+        {
+          "id": "kit-intercom",
+          "title": "Intercom, charged"
+        }
+      ]
+    },
+    {
+      "group": "Camping",
+      "items": [
+        {
+          "id": "camp-tent",
+          "title": "Tent that handles wind, plus solid pegs",
+          "why": "Coastal pitches are exposed and often sandy. Bring longer pegs than you think."
+        },
+        {
+          "id": "camp-closing",
+          "title": "Campsite closing dates confirmed",
+          "why": "Many coastal sites shut between 15 and 30 September — the Bayeux end of the trip sits in that window.",
+          "flag": "CHECK"
+        },
+        {
+          "id": "camp-cover",
+          "title": "Bike cover"
+        },
+        {
+          "id": "camp-gas",
+          "title": "Camping gas — buy in France",
+          "why": "Cartridges cannot travel in the van legally in any quantity. Pick up locally."
+        },
+        {
+          "id": "camp-torch",
+          "title": "Head torch per person"
+        }
+      ]
+    },
+    {
+      "group": "Practical",
+      "items": [
+        {
+          "id": "prac-cash",
+          "title": "Cash and a second bank card",
+          "why": "Rural French pumps are card-only after hours and sometimes reject foreign cards. Do not let the tank get low on a Sunday evening."
+        },
+        {
+          "id": "prac-offline-maps",
+          "title": "Offline maps downloaded",
+          "why": "Signal is patchy on the Finistère headlands and in the Monts d’Arrée."
+        },
+        {
+          "id": "prac-tides",
+          "title": "Tide times for the Mont-Saint-Michel day"
+        },
+        {
+          "id": "prac-112",
+          "title": "Emergency number 112, and a contact left at home"
+        }
+      ]
+    }
+  ]
+}
