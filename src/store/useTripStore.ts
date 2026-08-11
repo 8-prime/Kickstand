@@ -258,7 +258,7 @@ export const useTripStore = create<TripState>((set, get) => ({
       const { routes, failures } = await api.refreshRoutes(token, days, force);
       set((s) => ({
         payload: s.payload ? { ...s.payload, routes } : s.payload,
-        error: failures.length ? failures[0].message : null,
+        error: failures?.length ? failures[0].message : null,
       }));
       await cacheCurrent(get);
     } catch (err) {

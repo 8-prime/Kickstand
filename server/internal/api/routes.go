@@ -46,7 +46,9 @@ func (s *Server) refreshRoutes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var failures []trip.FieldError
+	// Empty, not nil: a nil slice marshals as null, and the client reads this
+	// as a list either way.
+	failures := []trip.FieldError{}
 	for _, d := range todo {
 		// The client's context, so closing the tab stops the batch rather
 		// than leaving it hammering the router for nobody.

@@ -194,7 +194,12 @@ export const api = {
   /** Ask the server to fetch road geometry. Days omitted means everything
    *  whose stops have changed since it was last routed. */
   refreshRoutes: (token: string, days?: number[], force = false) =>
-    request<{ routes: RouteGeometry[]; attempted: number; failures: FieldError[] }>(
+    request<{
+      routes: RouteGeometry[];
+      attempted: number;
+      // Nullable: a server old enough to send a nil slice marshals it as null.
+      failures: FieldError[] | null;
+    }>(
       `/trips/${token}/routes/refresh`,
       { method: "POST", body: { days: days ?? [], force }, admin: true },
     ),
